@@ -24,7 +24,15 @@ func AddUrl(longUrl string, shortUrl string) (URL, error) {
 	}
 	return url, nil
 }
+func CheckExist(shortUrl string) (bool, error) {
+	var exists bool
+	err := config.DB.QueryRow("SELECT EXISTS(SELECT 1 FROM urls WHERE short_url = $1)", shortUrl).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
 
+}
 func GetUrl(shortUrl string) (URL, error) {
 	stmt := `SELECT * FROM urls WHERE shorturl = $1`
 	var url URL
