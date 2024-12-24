@@ -33,7 +33,7 @@ func GetLongUrlController(c *fiber.Ctx) error {
 			fmt.Println(err)
 			return c.Status(http.StatusBadRequest).SendString("Failed to get URL")
 		}
-		return c.JSON(url)
+		return c.Redirect(url.LongURL)
 	}
 	return c.Status(http.StatusBadRequest).SendString("empty url")
 
