@@ -50,3 +50,15 @@ func genShortUrl() string {
 	return string(b)
 
 }
+func GetUrlInfo(c *fiber.Ctx) error {
+	shortUrl := c.Params("shortURL")
+	if shortUrl != "" {
+		url, err := models.GetUrl(shortUrl)
+		if err != nil {
+			return c.Status(http.StatusBadRequest).SendString("Failed to get URL")
+		}
+		return c.JSON(url)
+	}
+	return c.Status(http.StatusBadRequest).SendString("ShortURL was empty")
+
+}

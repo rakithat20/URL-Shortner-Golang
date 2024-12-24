@@ -35,8 +35,8 @@ func CheckExist(shortUrl string) (bool, error) {
 
 }
 func GetUrl(shortUrl string) (URL, error) {
-	stmt := `UPDATE urls SET total_clicks = total_clicks + 1 WHERE short_url = $1 RETURNING id, short_url, long_url, created_at, total_clicks;
-`
+
+	stmt := `UPDATE urls SET total_clicks = total_clicks + 1 WHERE short_url = $1 RETURNING id, short_url, long_url, created_at, total_clicks;`
 	var url URL
 
 	err := config.DB.QueryRow(stmt, shortUrl).Scan(&url.ID, &url.ShortURL, &url.LongURL, &url.CreatedAt, &url.TotalClicks)
