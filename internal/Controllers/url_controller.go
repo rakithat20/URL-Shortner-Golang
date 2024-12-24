@@ -53,7 +53,7 @@ func genShortUrl() string {
 func GetUrlInfo(c *fiber.Ctx) error {
 	shortUrl := c.Params("shortURL")
 	if shortUrl != "" {
-		url, err := models.GetUrl(shortUrl)
+		url, err := models.GetUrlInfo(shortUrl)
 		if err != nil {
 			return c.Status(http.StatusBadRequest).SendString("Failed to get URL")
 		}
