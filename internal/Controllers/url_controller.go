@@ -24,6 +24,20 @@ func AddUrlController(c *fiber.Ctx) error {
 	return c.Status(http.StatusBadRequest).SendString("empty url")
 
 }
+func GetLongUrlController(c *fiber.Ctx) error {
+	shortUrl := c.Params("shortURL")
+	if shortUrl != "" {
+		url, err := models.GetUrl(shortUrl)
+
+		if err != nil {
+			fmt.Println(err)
+			return c.Status(http.StatusBadRequest).SendString("Failed to get URL")
+		}
+		return c.JSON(url)
+	}
+	return c.Status(http.StatusBadRequest).SendString("empty url")
+
+}
 func genShortUrl() string {
 	source := rand.NewSource(time.Now().UnixNano())
 	rng := rand.New(source)

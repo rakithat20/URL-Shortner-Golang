@@ -8,4 +8,5 @@ import (
 
 func RegisterRoutes(app *fiber.App) {
 	app.Post("/url", controllers.AddUrlController)
+	app.Get("/:shortURL", controllers.GetLongUrlController)
 }
