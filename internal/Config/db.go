@@ -13,7 +13,7 @@ import (
 )
 
 var DB *sql.DB
-var CACHE = cache.New(5*time.Minute, 10*time.Minute)
+var CACHE = cache.New(6*time.Hour, 12*time.Hour)
 
 // ConnectDB initializes the database connection
 func ConnectDB() {
