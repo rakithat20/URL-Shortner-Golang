@@ -9,8 +9,8 @@ import (
 
 func RegisterRoutes(app *fiber.App) {
 	app.Get("/favicon.ico", func(c *fiber.Ctx) error { return c.Status(http.StatusNoContent).Send(nil) })
-	app.Post("/url", controllers.AddUrlController)
+	app.Post("/api/urls", controllers.AddUrlController)
 	app.Get("/:shortURL", controllers.GetLongUrlController)
-	app.Get("/url/:shortURL", controllers.GetUrlInfo)
+	app.Get("/api/urls/:shortURL", controllers.GetUrlInfo)
 
 }

@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
+	config "url-shortner/internal/Config"
 	routes "url-shortner/internal/Routes"
-	"url-shortner/internal/config"
 
 	"github.com/gofiber/fiber/v2"
 )

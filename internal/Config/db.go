@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/jackc/pgx/v5/stdlib" // Import the pgx driver
 	"github.com/joho/godotenv"         // For loading .env files
+	"github.com/patrickmn/go-cache"
 )
 
 var DB *sql.DB
+var CACHE = cache.New(5*time.Minute, 10*time.Minute)
 
 // ConnectDB initializes the database connection
 func ConnectDB() {
