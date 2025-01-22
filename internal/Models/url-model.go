@@ -76,3 +76,12 @@ func getCachedURL(shortUrl string) (URL, error) {
 	}
 	return emptyURL, fmt.Errorf("no cached value")
 }
+func CleanUP() error {
+	stmt := `DELETE FROM urls WHERE created_at < NOW() - INTERVAL '5 days';`
+	_, err := config.DB.Exec(stmt)
+	if err != nil {
+		fmt.Print(`Cleanup failed `)
+		return err
+	}
+	return nil
+}
