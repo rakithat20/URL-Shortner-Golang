@@ -13,8 +13,9 @@ import (
 )
 
 func main() {
+	l := log.New(log.Writer(), "URL Shortener: ", log.LstdFlags|log.Lshortfile)
 
-	config.ConnectDB()
+	config.ConnectDB(l)
 	defer config.DB.Close()
 
 	app := fiber.New()

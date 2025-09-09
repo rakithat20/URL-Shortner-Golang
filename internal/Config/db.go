@@ -1,4 +1,4 @@
-package config
+package Config
 
 import (
 	"database/sql"
@@ -7,8 +7,10 @@ import (
 	"os"
 	"time"
 
-	_ "github.com/jackc/pgx/v5/stdlib" // Import the pgx driver
-	"github.com/joho/godotenv"         // For loading .env files
+	_ "github.com/jackc/pgx/v5/stdlib"
+
+	// Import the pgx driver
+	"github.com/joho/godotenv" // For loading .env files
 	"github.com/patrickmn/go-cache"
 )
 
@@ -16,11 +18,11 @@ var DB *sql.DB
 var CACHE = cache.New(6*time.Hour, 12*time.Hour)
 
 // ConnectDB initializes the database connection
-func ConnectDB() {
+func ConnectDB(l *log.Logger) {
 	// Load environment variables
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		l.Fatalf("Error loading .env file: %v", err)
 	}
 
 	// Retrieve database credentials from .env
@@ -38,14 +40,14 @@ func ConnectDB() {
 	// Open a connection to the database
 	DB, err = sql.Open("pgx", dsn)
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		l.Fatalf("Failed to connect to database: %v", err)
 	}
 
 	// Test the connection
 	err = DB.Ping()
 	if err != nil {
-		log.Fatalf("Failed to ping database: %v", err)
+		l.Fatalf("Failed to ping database: %v", err)
 	}
 
-	log.Println("Database connection established")
+	l.Println("Database connection established")
 }
