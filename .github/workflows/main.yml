@@ -18,7 +18,7 @@ jobs:
     run: go install github.com/securego/gosec/v2/cmd/gosec@v2.22.5
     
   - name: Run gosec
-    run: gosec -fmt json -out results.json ./.. 
+    run: gosec -fmt sarif -out results.sarif ./...
   - name: Upload Report
     uses: actions/upload-artifact@v4.6.2
     if: always()
