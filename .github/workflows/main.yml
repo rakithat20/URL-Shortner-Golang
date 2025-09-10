@@ -1,0 +1,29 @@
+name: CI
+on: [push]
+
+jobs:
+ sast_scan:
+  name: Run Gosec
+  runs-on: ubuntu-latest
+
+  steps:
+  - name: Checkout Code
+    uses: actions/checkout@v5.0.0
+
+  - name: Install Go
+    uses: actions/setup-go@v6.0.0
+    with: 
+      go-version: 1.23
+  - name: Run Gosec Security Scanner
+    uses: securego/gosec@master
+    with: 
+     args: gosec -severity high -confidence high ./...
+
+      
+    
+  
+  
+  
+ 
+ 
+
