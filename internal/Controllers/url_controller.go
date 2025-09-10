@@ -1,10 +1,10 @@
 package Controllers
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
+	"math/big"
 	"net/http"
-	"time"
 	config "url-shortner/internal/Config"
 	models "url-shortner/internal/Models"
 
@@ -42,16 +42,19 @@ func GetLongUrlController(c *fiber.Ctx) error {
 
 }
 func genShortUrl() string {
-	source := rand.NewSource(time.Now().UnixNano())
-	rng := rand.New(source)
-	var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789")
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	const urlLength = 6
 
-	b := make([]rune, 6)
-	for i := range b {
-		b[i] = letterRunes[rng.Intn(len(letterRunes))]
+	result := make([]byte, urlLength)
+	charsetLen := big.NewInt(int64(len(charset)))
+
+	for i := range result {
+		randomIndex, _ := rand.Int(rand.Reader, charsetLen)
+
+		result[i] = charset[randomIndex.Int64()]
 	}
-	return string(b)
 
+	return string(result)
 }
 func GetUrlInfo(c *fiber.Ctx) error {
 
