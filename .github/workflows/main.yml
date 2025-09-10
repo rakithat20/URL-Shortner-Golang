@@ -18,6 +18,11 @@ jobs:
     uses: securego/gosec@master
     with: 
      args: ' ./... -severity high -fmt sarif -out results.sarif  '
+     working-directory: .
+  - name: Check for SARIF File
+    run: ls -la results.sarif || echo "results.sarif not found"
+    if: always()
+    working-directory: .
   - name: Upload Report
     uses: actions/upload-artifact@v4.6.2
     if: always()
