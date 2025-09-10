@@ -22,7 +22,8 @@ jobs:
     uses: actions/upload-artifact@v4.6.2
     if: always()
     with:
-     name: results.json
+     name: gosec report
+     path: results.json
 
       
     
